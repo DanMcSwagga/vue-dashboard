@@ -38,20 +38,27 @@ export default new Vuex.Store({
     numPages: (state, getters) =>
       Math.ceil(getters.filteredData.length / state.perPage),
 
-    getAverage: state => key => {
-      let entries = Object.values(state.data).map(el => el[key])
-      let avg = entries.reduce((total, entry) => total + entry) / entries.length
-      return Math.ceil(avg)
-    },
+    range: state => ({
+      from: (state.curPage - 1) * state.perPage + 1,
+      to: state.curPage * state.perPage
+    }),
 
-    getAverageSalary: state => {
-      //TODO need to parse as number first
-      let entries = Object.values(state.data).map(el => el['Salary'])
-      console.log(entries)
-      let avg = entries.reduce((total, entry) => total + entry) / entries.length
-      console.log(avg)
-      return Math.ceil(avg)
+    getAverage: state => key => {
+      return Math.ceil(
+        Object.values(state.data)
+          .map(el => el[key])
+          .reduce((total, entry) => total + entry) / state.data.length
+      )
     }
+
+    // ,getAverageSalary: state => {
+    // // TODO need to parse as number first
+    // let entries = Object.values(state.data).map(el => el['Salary'])
+    // console.log(entries)
+    // let avg = entries.reduce((total, entry) => total + entry) / entries.length
+    // console.log(avg)
+    // return Math.ceil(avg)
+    // }
   },
 
   mutations: {

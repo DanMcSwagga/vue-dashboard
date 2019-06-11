@@ -5,17 +5,17 @@
       Current page: <b>{{ curPage }}</b>
     </span>
     <span>
-      Per-page visibility: <b>{{ perPage }}</b>
+      Entries displayed per page: <b>{{ perPage }}</b>
     </span>
     <span>
       Data entries: <b>{{ data.length }}</b>
     </span>
+    <span>
+      Showing range: from <b>{{ range.from }}</b> to <b>{{ range.to }}</b>
+    </span>
     <hr />
     <span>
       Average age: <b>{{ getAverage('Age') }}</b>
-    </span>
-    <span>
-      Average salary: <b>{{ getAverageSalary }}</b>
     </span>
   </div>
 </template>
@@ -25,8 +25,8 @@ import { mapState, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['curPage', 'perPage', 'data']),
-    ...mapGetters(['getAverage', 'getAverageSalary'])
+    ...mapState(['data', 'curPage', 'perPage', 'searchText']),
+    ...mapGetters(['range', 'getAverage'])
   }
 }
 </script>
