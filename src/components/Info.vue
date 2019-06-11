@@ -11,16 +11,22 @@
       Data entries: <b>{{ data.length }}</b>
     </span>
     <hr />
-    <span>Averages...</span>
+    <span>
+      Average age: <b>{{ getAverage('Age') }}</b>
+    </span>
+    <span>
+      Average salary: <b>{{ getAverageSalary }}</b>
+    </span>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['curPage', 'perPage', 'data'])
+    ...mapState(['curPage', 'perPage', 'data']),
+    ...mapGetters(['getAverage', 'getAverageSalary'])
   }
 }
 </script>
@@ -28,7 +34,7 @@ export default {
 <style lang="scss" scoped>
 .info-wrapper {
   border: 1px solid #ddd;
-  padding: 8px 16px;
+  padding: 0 16px 8px 16px;
 
   display: flex;
   flex-direction: column;

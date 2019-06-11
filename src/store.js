@@ -10,6 +10,7 @@ export default new Vuex.Store({
     curPage: 1,
     perPage: 5,
     searchText: ''
+    // ,averages: []
   },
 
   getters: {
@@ -37,14 +38,19 @@ export default new Vuex.Store({
     numPages: (state, getters) =>
       Math.ceil(getters.filteredData.length / state.perPage),
 
-    getAverageAge: state => {
-      // calculate average age
-      return state.data
+    getAverage: state => key => {
+      let entries = Object.values(state.data).map(el => el[key])
+      let avg = entries.reduce((total, entry) => total + entry) / entries.length
+      return Math.ceil(avg)
     },
 
     getAverageSalary: state => {
-      // calculate average salary
-      return state.data
+      //TODO need to parse as number first
+      let entries = Object.values(state.data).map(el => el['Salary'])
+      console.log(entries)
+      let avg = entries.reduce((total, entry) => total + entry) / entries.length
+      console.log(avg)
+      return Math.ceil(avg)
     }
   },
 

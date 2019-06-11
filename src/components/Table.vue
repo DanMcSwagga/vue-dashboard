@@ -3,7 +3,11 @@
     <table>
       <thead>
         <tr>
-          <th v-for="(field, index) in fields" :key="`f${index}`">
+          <th
+            v-for="(field, index) in fields"
+            :key="`f${index}`"
+            @click="setFilterKey"
+          >
             {{ field }}
           </th>
         </tr>
@@ -41,6 +45,10 @@ export default {
         new RegExp('(' + this.searchText + ')', 'gim'),
         '<i>$1</i>'
       )
+    },
+
+    setFilterKey() {
+      console.log('setting key')
     }
   }
 }
