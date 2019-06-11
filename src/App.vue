@@ -1,5 +1,10 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
+    <div class="app-uploader">
+      <Upload />
+      <!-- this.$store.state.data = $event -->
+    </div>
+
     <div class="app-header">
       <ShowItems />
       <SearchItems />
@@ -8,7 +13,7 @@
     <TableData />
 
     <div class="app-footer">
-      <!-- <Info /> -->
+      <Info />
       <Pagination />
     </div>
   </div>
@@ -19,7 +24,8 @@ import TableData from '@/components/Table.vue'
 import ShowItems from '@/components/ShowItems.vue'
 import SearchItems from '@/components/SearchItems.vue'
 import Pagination from '@/components/Pagination.vue'
-// import Info from "@/components/Info.vue";
+import Info from '@/components/Info.vue'
+import Upload from '@/components/Upload.vue'
 
 export default {
   name: 'app',
@@ -28,9 +34,9 @@ export default {
     TableData,
     ShowItems,
     SearchItems,
-    Pagination
-    // Info,
-    // Upload
+    Pagination,
+    Info,
+    Upload
   }
 }
 </script>
@@ -42,11 +48,12 @@ export default {
   font-size: 14px;
 }
 
-.app-header,
-.app-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 2px;
+#app {
+  & > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+  }
 }
 
 .app-upload {

@@ -35,12 +35,30 @@ export default new Vuex.Store({
     },
 
     numPages: (state, getters) =>
-      Math.ceil(getters.filteredData.length / state.perPage)
+      Math.ceil(getters.filteredData.length / state.perPage),
+
+    getAverageAge: state => {
+      // calculate average age
+      return state.data
+    },
+
+    getAverageSalary: state => {
+      // calculate average salary
+      return state.data
+    }
   },
 
   mutations: {
-    set: (state, { key, value }) => (state[key] = value) // кей
+    set: (state, { key, value }) => (state[key] = value),
+    setData: (state, payload) => (state.data = payload)
   },
 
-  actions: {}
+  actions: {
+    uploadData({ commit }, data) {
+      console.log('~ uploading new JSON data ...')
+      // alert('Upload successful')
+
+      commit('setData', JSON.parse(data))
+    }
+  }
 })

@@ -105,11 +105,6 @@ export default {
 </script>
 
 <style>
-nav {
-  background-color: #ddd;
-  border-radius: 5px;
-}
-
 nav ul {
   list-style-type: none;
   padding: 0;
@@ -121,19 +116,23 @@ nav ul li {
 }
 
 nav ul li a {
-  padding: 7px 8px;
+  margin: 7px 2px;
+  padding: 0 5px;
   display: block;
   text-decoration: none;
   color: #337ab7;
 }
 
 nav ul li span {
-  padding: 7px 8px;
+  margin: 5px 3px;
+  padding: 2px 4px;
   display: block;
 }
 
 nav ul li span.active {
-  color: #fff;
+  /* color: #515a64; */
+  color: #ffffff;
+  background-color: #337ab7;
 }
 
 nav ul li span.disabled {
