@@ -13,10 +13,11 @@
     <span>
       Showing range: from <b>{{ range.from }}</b> to <b>{{ range.to }}</b>
     </span>
-    <hr />
-    <span>
-      Average age: <b>{{ getAverage('Age') }}</b>
+    <span class="search-span">
+      Search text: <b>{{ searchText ? searchText : '_' }}</b>
     </span>
+    <!-- <hr /> -->
+    <!-- <span>Average age: <b>{{ getAverage('Age') }}</b></span> -->
   </div>
 </template>
 
@@ -38,5 +39,14 @@ export default {
 
   display: flex;
   flex-direction: column;
+}
+span {
+  margin: 2px 0;
+}
+.search-span {
+  & > b {
+    text-decoration: underline;
+    // border-bottom: 1px solid #73879c;
+  }
 }
 </style>

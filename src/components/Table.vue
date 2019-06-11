@@ -2,19 +2,27 @@
   <div>
     <table>
       <thead>
+        <!-- <th @click="setOrder('name')"> -->
+        <!-- {{ fields[0] }} {{ sortKey === 'name' ? arrows[+order] : '' }} -->
+        <!-- </th> -->
+        <!-- <th @click="setOrder('passed')"> -->
+        <!-- {{ fields[2] }} -->
+        <!-- {{ sortKey === 'passed' ? arrows[+order] : '' }} -->
+        <!-- </th> -->
+
         <tr>
           <th
             v-for="(field, index) in fields"
             :key="`f${index}`"
-            @click="setFilterKey"
+            @click="setKeyOrder(fields[index])"
           >
-            {{ field }}
+            {{ field }} {{ sortKey === fields[index] ? arrows[+order] : '' }}
           </th>
         </tr>
       </thead>
 
       <tbody>
-        <tr v-for="(row, index) in rows" :key="`r${index}`">
+        <tr v-for="(row, index) in sortedRows" :key="`r${index}`">
           <td v-for="(item, key) in row" :key="`r${key}`">
             <span v-html="replaceText(item.toString())" />
           </td>
@@ -26,17 +34,32 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import _ from 'lodash'
 
 export default {
   name: 'Table',
 
   data() {
-    return {}
+    return {
+      arrows: ['↑', '↓'],
+
+      // TODO: remake using store
+      sortKey: '',
+      order: false
+    }
   },
 
   computed: {
     ...mapState(['searchText']),
-    ...mapGetters(['fields', 'rows'])
+    ...mapGetters(['fields', 'rows']),
+
+    sortedRows() {
+      return _.orderBy(
+        this.rows,
+        [row => row[this.sortKey]],
+        this.order ? 'asc' : 'desc'
+      )
+    }
   },
 
   methods: {
@@ -47,8 +70,10 @@ export default {
       )
     },
 
-    setFilterKey() {
-      console.log('setting key')
+    setKeyOrder(key) {
+      console.log('setting key & order: ' + key)
+      if (this.sortKey === key) this.order = !this.order
+      this.sortKey = key
     }
   }
 }
