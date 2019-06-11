@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import data from './data'
 
+import _ from 'lodash'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -9,22 +11,39 @@ export default new Vuex.Store({
     data,
     curPage: 1,
     perPage: 5,
-    searchText: ''
-    // ,averages: []
+    searchText: '',
+    sortKey: '',
+    order: true
   },
 
   getters: {
+    // lodash sort numbers:
+    // _.orderBy(rows, Number, order ? 'asc' : 'desc'),
+
     fields: state => Object.keys(state.data[0]),
 
-    // TODO: rewrite/optimize
-    filteredData: state => {
-      return state.data.filter(
+    sortedData: state => {
+      return _.orderBy(
+        state.data,
+        [entry => entry[state.sortKey]],
+        state.order ? 'asc' : 'desc'
+      )
+    },
+
+    filteredData: (state, getters) => {
+      return getters.sortedData.filter(
         e =>
           Object.values(e)
-            // .slice(1)
-            .join('~')
-            .toLowerCase()
-            .indexOf(state.searchText.toLowerCase()) > -1
+            // .join('~')
+            // .toLowerCase()
+            // .indexOf(state.searchText.toLowerCase()) > -1
+            .filter(
+              x =>
+                x
+                  .toString()
+                  .toLowerCase()
+                  .indexOf(state.searchText.toString().toLowerCase()) > -1
+            ).length > 0
       )
     },
 
@@ -49,29 +68,34 @@ export default new Vuex.Store({
           .map(el => el[key])
           .reduce((total, entry) => total + entry) / state.data.length
       )
-    }
+    },
 
-    // ,getAverageSalary: state => {
-    // // TODO need to parse as number first
-    // let entries = Object.values(state.data).map(el => el['Salary'])
-    // console.log(entries)
-    // let avg = entries.reduce((total, entry) => total + entry) / entries.length
-    // console.log(avg)
-    // return Math.ceil(avg)
-    // }
+    parseSalary: () => str => {
+      Number(parseInt(str.slice(1).replace(/,/g, '')))
+    }
   },
 
   mutations: {
     set: (state, { key, value }) => (state[key] = value),
-    setData: (state, payload) => (state.data = payload)
+
+    setData: (state, payload) => (state.data = payload),
+
+    setKeyOrder: (state, key) => {
+      if (state.sortKey === key) state.order = !state.order
+      state.sortKey = key
+    }
   },
 
   actions: {
     uploadData({ commit }, data) {
       console.log('~ uploading new JSON data ...')
       // alert('Upload successful')
-
       commit('setData', JSON.parse(data))
+    },
+
+    updateKeyOrder({ commit }, key) {
+      console.log('~~ setting key: ' + key)
+      commit('setKeyOrder', key)
     }
   }
 })

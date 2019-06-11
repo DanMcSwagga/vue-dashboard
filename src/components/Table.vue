@@ -2,14 +2,6 @@
   <div>
     <table>
       <thead>
-        <!-- <th @click="setOrder('name')"> -->
-        <!-- {{ fields[0] }} {{ sortKey === 'name' ? arrows[+order] : '' }} -->
-        <!-- </th> -->
-        <!-- <th @click="setOrder('passed')"> -->
-        <!-- {{ fields[2] }} -->
-        <!-- {{ sortKey === 'passed' ? arrows[+order] : '' }} -->
-        <!-- </th> -->
-
         <tr>
           <th
             v-for="(field, index) in fields"
@@ -22,7 +14,7 @@
       </thead>
 
       <tbody>
-        <tr v-for="(row, index) in sortedRows" :key="`r${index}`">
+        <tr v-for="(row, index) in rows" :key="`r${index}`">
           <td v-for="(item, key) in row" :key="`r${key}`">
             <span v-html="replaceText(item.toString())" />
           </td>
@@ -41,25 +33,21 @@ export default {
 
   data() {
     return {
-      arrows: ['↑', '↓'],
-
-      // TODO: remake using store
-      sortKey: '',
-      order: false
+      arrows: ['↑', '↓']
     }
   },
 
   computed: {
-    ...mapState(['searchText']),
-    ...mapGetters(['fields', 'rows']),
+    ...mapState(['searchText', 'sortKey', 'order']),
+    ...mapGetters(['fields', 'rows'])
 
-    sortedRows() {
-      return _.orderBy(
-        this.rows,
-        [row => row[this.sortKey]],
-        this.order ? 'asc' : 'desc'
-      )
-    }
+    // sortedRows() {
+    // return _.orderBy(
+    // this.rows,
+    // [row => row[this.sortKey]],
+    // this.order ? 'asc' : 'desc'
+    // )
+    // }
   },
 
   methods: {
@@ -71,9 +59,7 @@ export default {
     },
 
     setKeyOrder(key) {
-      console.log('setting key & order: ' + key)
-      if (this.sortKey === key) this.order = !this.order
-      this.sortKey = key
+      this.$store.dispatch('updateKeyOrder', key)
     }
   }
 }
