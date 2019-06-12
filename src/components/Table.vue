@@ -26,7 +26,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import _ from 'lodash'
 
 export default {
   name: 'Table',
