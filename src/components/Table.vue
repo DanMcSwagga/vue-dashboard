@@ -15,7 +15,15 @@
 
       <tbody>
         <tr v-for="(row, index) in rows" :key="`r${index}`">
-          <td v-for="(item, key) in row" :key="`r${key}`">
+          <td
+            v-for="(item, key) in row"
+            :key="`r${key}`"
+            contenteditable="true"
+            @focus="event => onInput(event, index, key)"
+            @input="event => onInput(event, index, key)"
+            @keyup.delete="updateContent(index, key)"
+            @blur="onSave"
+          >
             <span v-html="replaceText(item.toString())" />
           </td>
         </tr>
@@ -51,6 +59,33 @@ export default {
 
     setKeyOrder(key) {
       this.$store.dispatch('updateKeyOrder', key)
+    },
+
+    onInput(event, index, key) {
+      console.log('----------------')
+      console.log('reading the data')
+      // need to set the appropriate cell to the value
+
+      // eslint-disable-next-line prettier/prettier
+      // this.$store.state.data[index][key] = event.target.innerHTML.trim()
+      console.log(event.target.innerText)
+      this.$store.state.data[index][key] = event.target.innerText
+
+      console.log('~~ text: ' + event.target.innerText)
+      console.log(this.$store.state.data)
+
+      this.updateContent()
+    },
+
+    updateContent() {
+      console.log('~~ text: ' + event.target.innerText)
+      // this.$store.state.data[index][key]
+    },
+
+    onSave() {
+      console.log('+++++++++++++++++')
+      console.log('  saving the data')
+      console.log(this.$store.state.data)
     }
   }
 }
