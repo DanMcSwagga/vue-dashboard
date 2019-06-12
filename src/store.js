@@ -59,7 +59,10 @@ export default new Vuex.Store({
 
     range: state => ({
       from: (state.curPage - 1) * state.perPage + 1,
-      to: state.curPage * state.perPage
+      to:
+        state.curPage * state.perPage > state.data.length
+          ? state.data.length
+          : state.curPage * state.perPage
     }),
 
     getAverage: state => key => {
