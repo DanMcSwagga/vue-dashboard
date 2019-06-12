@@ -56,8 +56,6 @@ export default {
   display: block;
   text-align: center;
   font-weight: bold;
-  font-family: 'Times New Roman';
-  font-size: 14px;
 }
 .file-upload .file-select {
   display: block;

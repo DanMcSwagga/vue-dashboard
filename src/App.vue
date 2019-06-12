@@ -54,6 +54,10 @@ export default {
     justify-content: space-between;
     padding: 8px 10px;
   }
+  & > div:nth-child(1) {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .app-upload {

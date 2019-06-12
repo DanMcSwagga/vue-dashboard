@@ -1,6 +1,6 @@
 <template>
   <div class="info-wrapper">
-    <h1>Main Info</h1>
+    <h3>Main Info</h3>
     <span>
       Current page: <b>{{ curPage }}</b>
     </span>
@@ -14,7 +14,7 @@
       Showing range: from <b>{{ range.from }}</b> to <b>{{ range.to }}</b>
     </span>
     <span class="search-span">
-      Search text: <b>{{ searchText ? searchText : '_' }}</b>
+      Search text: <b>{{ searchText ? searchText : '___' }}</b>
     </span>
     <!-- <hr /> -->
     <!-- <span>Average age: <b>{{ getAverage('Age') }}</b></span> -->
@@ -35,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .info-wrapper {
   border: 1px solid #ddd;
-  padding: 0 16px 8px 16px;
+  padding: 10px 20px;
 
   display: flex;
   flex-direction: column;

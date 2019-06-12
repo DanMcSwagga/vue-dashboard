@@ -39,14 +39,6 @@ export default {
   computed: {
     ...mapState(['searchText', 'sortKey', 'order']),
     ...mapGetters(['fields', 'rows'])
-
-    // sortedRows() {
-    // return _.orderBy(
-    // this.rows,
-    // [row => row[this.sortKey]],
-    // this.order ? 'asc' : 'desc'
-    // )
-    // }
   },
 
   methods: {
@@ -79,7 +71,6 @@ th {
   text-align: left;
   border: 1px solid #ddd;
   border-bottom: 3px solid #ddd;
-  font-family: 'Glyphicons Halflings';
   position: relative;
   cursor: pointer;
 }
