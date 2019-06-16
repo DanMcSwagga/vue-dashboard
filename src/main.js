@@ -1,5 +1,5 @@
 import 'bootstrap-css-only/css/bootstrap.min.css'
-import 'mdbvue/build/css/mdb.css'
+import 'mdbvue/build/css/mdb.css' // not needed, alt styles
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
