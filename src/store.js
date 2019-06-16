@@ -17,9 +17,6 @@ export default new Vuex.Store({
   },
 
   getters: {
-    // lodash sort numbers:
-    // _.orderBy(rows, Number, order ? 'asc' : 'desc'),
-
     fields: state => Object.keys(state.data[0]),
 
     sortedData: state => {

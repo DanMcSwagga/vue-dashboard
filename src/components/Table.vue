@@ -13,32 +13,26 @@
           >
             <!-- Alternative to class arrow sorting -->
             <!-- {{ field }} {{ sortKey === fields[index] ? arrows[+order] : '' }} -->
-            {{ field }}
+            <span v-html="field" />
           </th>
         </tr>
       </thead>
 
       <tbody>
         <tr v-for="(row, index) in rows" :key="`r${index}`">
-          <!-- @input="event => onInput(event, index, key)" -->
-          <!-- @keyup.delete="updateContent(index, key)" -->
-
-          <!-- TODO: replace text fucks up the input -->
+          <!-- @focus="event => onInput(event, index, key)" -->
           <td
             v-for="(item, key) in row"
             :key="`r${key}`"
             contenteditable="true"
-            @focus="event => onInput(event, index, key)"
-            @input="event => onInput(event, index, key)"
+            @input="event => onInput(event)"
             @blur="onSave(index, key)"
-            v-html="item.toString()"
           >
-            <!-- <span v-html="replaceText(item.toString())" /> -->
+            <span v-html="replaceText(item.toString())" />
           </td>
         </tr>
       </tbody>
     </table>
-    <button @click="test">some</button>
   </div>
 </template>
 
@@ -48,9 +42,10 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'Table',
 
-  // data: () => ({
-  //   arrows: ['↑', '↓']
-  // }),
+  data: () => ({
+    // arrows: ['↑', '↓'],
+    editedCell: ''
+  }),
 
   computed: {
     ...mapState(['searchText', 'sortKey', 'order']),
@@ -69,36 +64,18 @@ export default {
       this.$store.dispatch('updateKeyOrder', key)
     },
 
-    onInput(event, index, key) {
-      console.log('reading data')
+    onInput(event) {
+      console.log('------------')
+      console.log('reading data: ' + this.editedCell)
 
-      // this.$store.state.data[index][key] = event.target.innerHTML.trim()
-      console.log(event.target.innerText)
-
-      this.$store.state.data[index][key] = event.target.innerText.trim()
-
-      console.log('~~ text: ' + event.target.innerText.trim())
-      // console.log(this.$store.state.data)
-      console.log(this.$store.state.data[index][key])
-
-      // this.updateContent()
-    },
-
-    updateContent() {
-      console.log('~~ updating: ' + event.target.innerText)
-      // this.$store.state.data[index][key]
-      // console.log(this.$store.state.data)
+      this.editedCell = event.target.innerText.trim()
     },
 
     onSave(index, key) {
-      console.log('saving data')
-      // console.log(this.$store.state.data)
-      console.log(this.$store.state.data[index][key])
-    },
-
-    test() {
-      console.log(this.$store.state.data[0]['Office'])
-      console.log(this.$store.state.data[0]['Age'])
+      console.log('============')
+      console.log('saving data: ' + this.editedCell)
+      this.$store.state.data[index][key] = this.editedCell
+      // saving new data into a JSON file her, if needed
     }
   }
 }
@@ -150,6 +127,7 @@ td {
 td,
 th {
   padding: 8px;
+  font-size: 14px !important;
 }
 
 i {
