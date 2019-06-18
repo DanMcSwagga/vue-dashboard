@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import TableData from '@/components/Table.vue'
+import TableData from '@/views/Table.vue'
 import ShowItems from '@/components/ShowItems.vue'
 import SearchItems from '@/components/SearchItems.vue'
 import Pagination from '@/components/Pagination.vue'
@@ -48,6 +48,7 @@ export default {
 }
 
 #app {
+  padding: 10px 30px;
   & > div {
     display: flex;
     justify-content: space-between;

@@ -14,6 +14,8 @@ export default {
       },
       set: function(text) {
         this.$store.commit('set', { key: 'curPage', value: 1 })
+        this.$router.replace({ path: '/1' })
+
         this.$store.commit('set', { key: 'searchText', value: text })
       }
     }

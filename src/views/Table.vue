@@ -90,6 +90,11 @@ export default {
 
       // saving new data into a JSON file her, if needed
     }
+  },
+
+  created() {
+    // debugger
+    this.$store.state.curPage = Number.parseInt(this.$route.params.page)
   }
 }
 </script>

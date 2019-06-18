@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import data from './data/data'
-import data from './data/data_copy'
+import data from './data/data'
 
 import _ from 'lodash'
 
@@ -11,6 +10,7 @@ export default new Vuex.Store({
   state: {
     data,
     curPage: 1,
+    // this.$route.params
     perPage: 5,
     searchText: '',
     sortKey: '',

@@ -1,13 +1,17 @@
 <template>
   <nav>
     <ul>
+      <!-- <li>
+        <a href="#" v-if="curPage != 1" @click.prevent="prevPage">Previous</a>
+        <span v-else class="disabled">Previous</span>
+      </li> -->
       <li>
         <router-link
-          :to="{ name: 'home', params: { page: prevPage } }"
+          :to="{ name: 'home', params: { page: curPage - 1 } }"
           v-if="curPage !== 1"
-          @click.prevent="setCurPage(prevPage)"
+          @click.prevent="setPage(curPage - 1)"
         >
-          Next
+          Previous
         </router-link>
         <span v-else class="disabled">Previous</span>
       </li>
@@ -17,7 +21,7 @@
           <router-link
             :to="{ name: 'home', params: { page: n } }"
             v-if="curPage !== n"
-            @click.prevent="setCurPage(n)"
+            @click.prevent="setPage(n)"
           >
             {{ n }}
           </router-link>
@@ -30,7 +34,7 @@
           <router-link
             :to="{ name: 'home', params: { page: n } }"
             v-if="curPage !== n"
-            @click.prevent="setCurPage(n)"
+            @click.prevent="setPage(n)"
           >
             {{ n }}
           </router-link>
@@ -58,7 +62,7 @@
           <router-link
             :to="{ name: 'home', params: { page: n } }"
             v-if="curPage !== n"
-            @click.prevent="setCurPage(n)"
+            @click.prevent="setPage(n)"
           >
             {{ n }}
           </router-link>
@@ -70,7 +74,7 @@
         <li>
           <router-link
             :to="{ name: 'home', params: { page: 1 } }"
-            @click.prevent="setCurPage(1)"
+            @click.prevent="setPage(1)"
           >
             {{ 1 }}
           </router-link>
@@ -82,7 +86,7 @@
           <router-link
             :to="{ name: 'home', params: { page: n } }"
             v-if="curPage !== n"
-            @click.prevent="setCurPage(n)"
+            @click.prevent="setPage(n)"
           >
             {{ n }}
           </router-link>
@@ -94,7 +98,7 @@
         <li>
           <router-link
             :to="{ name: 'home', params: { page: numPages } }"
-            @click.prevent="setCurPage(numPages)"
+            @click.prevent="setPage(numPages)"
           >
             {{ numPages }}
           </router-link>
@@ -103,9 +107,9 @@
 
       <li>
         <router-link
-          :to="{ name: 'home', params: { page: nextPage } }"
+          :to="{ name: 'home', params: { page: curPage + 1 } }"
           v-if="curPage !== numPages"
-          @click.prevent="setCurPage(nextPage)"
+          @click.prevent="setPage(curPage + 1)"
         >
           Next
         </router-link>
@@ -125,23 +129,15 @@ export default {
   },
 
   methods: {
-    setCurPage(n) {
-      this.$store.commit('set', { key: 'curPage', value: n })
-    },
-
-    prevPage() {
-      this.$store.commit('set', { key: 'curPage', value: this.curPage - 1 })
-    },
-
-    nextPage() {
-      this.$store.commit('set', { key: 'curPage', value: this.curPage + 1 })
+    setPage(page) {
+      this.$store.commit('set', { key: 'curPage', value: page })
     }
   },
 
   watch: {
     '$route.params.page': function(page) {
       console.log('reacting to route change from [Pagination], page: ' + page)
-      this.setCurPage(page)
+      this.setPage(page)
     }
   }
 }
