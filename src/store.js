@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import data from './data/data'
+// import data from './data/data'
+import data from './data/data_copy'
 
 import _ from 'lodash'
 

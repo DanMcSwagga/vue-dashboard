@@ -2,7 +2,6 @@
   <div id="app" class="app">
     <div class="app-uploader">
       <Upload />
-      <!-- this.$store.state.data = $event -->
     </div>
 
     <div class="app-header">
