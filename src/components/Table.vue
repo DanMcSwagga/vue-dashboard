@@ -66,15 +66,28 @@ export default {
 
     onInput(event) {
       console.log('------------')
-      console.log('reading data: ' + this.editedCell)
+      console.log('reading data: ' + event.target.innerText.trim())
+      console.log('edited cell [was]: ' + this.editedCell)
 
       this.editedCell = event.target.innerText.trim()
+
+      console.log('edited cell [is]: ' + this.editedCell)
     },
 
     onSave(index, key) {
       console.log('============')
-      console.log('saving data: ' + this.editedCell)
-      this.$store.state.data[index][key] = this.editedCell
+      console.log('saving data [was]: ' + this.$store.state.data[index][key])
+      console.log('edited cell is: ' + this.editedCell)
+
+      this.$store.state.data[index][key] =
+        this.editedCell.length !== 0
+          ? this.editedCell
+          : this.$store.state.data[index][key]
+
+      console.log('saving data [is]: ' + this.$store.state.data[index][key])
+
+      this.editedCell = ''
+
       // saving new data into a JSON file her, if needed
     }
   }
