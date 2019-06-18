@@ -1,10 +1,6 @@
 <template>
   <nav>
     <ul>
-      <!-- <li>
-        <a href="#" v-if="curPage != 1" @click.prevent="prevPage">Previous</a>
-        <span v-else class="disabled">Previous</span>
-      </li> -->
       <li>
         <router-link
           :to="{ name: 'home', params: { page: curPage - 1 } }"

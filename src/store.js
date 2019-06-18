@@ -10,7 +10,6 @@ export default new Vuex.Store({
   state: {
     data,
     curPage: 1,
-    // this.$route.params
     perPage: 5,
     searchText: '',
     sortKey: '',
@@ -31,17 +30,13 @@ export default new Vuex.Store({
     filteredData: (state, getters) => {
       return getters.sortedData.filter(
         e =>
-          Object.values(e)
-            // .join('~')
-            // .toLowerCase()
-            // .indexOf(state.searchText.toLowerCase()) > -1
-            .filter(
-              x =>
-                x
-                  .toString()
-                  .toLowerCase()
-                  .indexOf(state.searchText.toString().toLowerCase()) > -1
-            ).length > 0
+          Object.values(e).filter(
+            x =>
+              x
+                .toString()
+                .toLowerCase()
+                .indexOf(state.searchText.toString().toLowerCase()) > -1
+          ).length > 0
       )
     },
 
