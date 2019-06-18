@@ -18,7 +18,7 @@ __________
 
 # Demo
 
- - [Main demo](https://mdbootstrap.com/docs/vue/components/demo/)
+ - [Main demo](https://s08k3.codesandbox.io/)
 
 # Version
 
